@@ -76,7 +76,7 @@ export default function App() {
     try {
       const reviews = await fetchMockReviews(competitorName, competitorDesc);
       
-      setAnalysisStep(`Analyzing ${reviews.length} reviews with Gemini 2.5...`);
+      setAnalysisStep(`Analyzing ${reviews.length} reviews with Gemini 3.8 Flash...`);
       const analysisData = await analyzeCompetitorReviews(competitorName, reviews);
       
       const fullAnalysis: CompetitorAnalysis = {
@@ -96,7 +96,7 @@ export default function App() {
       setAppState(AppState.INSIGHTS);
     } catch (err: any) {
       console.error(err);
-      setError('Analysis failed. Please check your API key or try again.');
+      setError(err?.message || 'Analysis failed. Please try again.');
       setAppState(AppState.ANALYZER_INPUT);
     } finally {
       setIsAnalyzing(false);
