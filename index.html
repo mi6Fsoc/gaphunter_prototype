@@ -7,8 +7,61 @@
     <meta name="description" content="Identify proven SaaS opportunities by analyzing competitor negative reviews using AI." />
     <meta property="og:title" content="GapHunter - SaaS Opportunity Analyzer" />
     <meta property="og:description" content="Identify proven SaaS opportunities by analyzing competitor negative reviews using AI." />
+    <script>
+      // Polyfill/shim window.fetch to provide a setter for browser extensions and third-party scripts
+      (function() {
+        try {
+          var _f = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            configurable: true,
+            enumerable: true,
+            get: function() { return _f; },
+            set: function(newFetch) { _f = newFetch; }
+          });
+        } catch (e) {}
+
+        // Suppress chrome-extension injected script errors from bubbling to app
+        window.addEventListener('error', function(e) {
+          if (e && e.filename && e.filename.indexOf('chrome-extension://') !== -1) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }, true);
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              lumina: {
+                orange: '#E85D22',
+                accent: '#D44E18',
+                dark: '#0D0D0E',
+                surface: '#1A1A1A',
+                surfaceSubtle: '#141415',
+                surfaceHover: '#222225',
+                border: '#2A2A2E',
+                borderHighlight: '#3E3E44',
+                muted: '#A1A1AA',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+              mono: ['"JetBrains Mono"', 'monospace'],
+            },
+            borderRadius: {
+              card: '8px',
+              control: '8px',
+            }
+          }
+        }
+      };
+    </script>
     <style>
       :root {
         /* Adopting the DARK theme values from the prompt as the default for this app */
@@ -43,7 +96,8 @@
         --radius: 0rem;
         
         /* Font Family */
-        --font-mono: 'IBM Plex Mono', monospace;
+        --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
       }
 
       html {
@@ -51,9 +105,9 @@
       }
       
       body {
-        font-family: var(--font-mono);
-        background-color: black;
-        color: white;
+        font-family: var(--font-sans);
+        background-color: #0D0D0E;
+        color: #ffffff;
         -webkit-font-smoothing: antialiased;
       }
 
